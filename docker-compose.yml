@@ -1,0 +1,17 @@
+version: "2"
+
+services: 
+
+  deep_learning:
+    build: 
+      context: .
+      dockerfile: Dockerfile-python-libraries
+    # image: floydhub/dl-docker:cpu
+    ports: 
+      - 8888:8888
+      - 6006:6006
+    volumes: 
+      - ./notebooks:/notebooks
+      # - ./sharedfolder:/root/sharedfolder
+    # command: jupyter notebook --notebook-dir=sharedfolder
+    # command: sh -c 'jupyter notebook --ip 0.0.0.0 --notebook-dir=sharedfolder'
