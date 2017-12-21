@@ -23,7 +23,6 @@ from datetime import datetime
 
 import tensorflow as tf
 import matplotlib.pyplot as plt
-get_ipython().magic(u'matplotlib inline')
 
 from sklearn.cross_validation import train_test_split
 from sklearn.cross_validation import KFold
@@ -39,7 +38,7 @@ from scipy.misc import imread, imresize
 
 use_cache = 1
 # color type: 1 - grey, 3 - rgb
-color_type_global = 3
+color_type_global = 1
 
 
 # color_type = 1 - gray
@@ -185,11 +184,14 @@ def read_and_normalize_train_data(img_rows, img_cols, color_type=1):
         print('Restore train from cache!')
         (train_data, train_target, driver_id, unique_drivers) = restore_data(cache_path)
 
-    train_data = np.array(train_data, dtype=np.uint8)
-    train_target = np.array(train_target, dtype=np.uint8)
+    train_data = np.array(train_data, dtype=np.float32)
+    train_target = np.array(train_target, dtype=np.float32)
     train_data = train_data.reshape(train_data.shape[0], color_type, img_rows, img_cols)
     train_target = np_utils.to_categorical(train_target, 10)
-    train_data = train_data.astype('float32')
+    #train_data_1 = train_data[:, :len(train_data)/2].astype('float32')
+    #train_data_2 = train_data[:, len(train_data)/2:].astype('float32')
+    #train_data = np.hstack(train_data_1, train_data_2)
+    #train_data = train_data.astype('float32')
     train_data /= 255
     print('Train shape:', train_data.shape)
     print(train_data.shape[0], 'train samples')
@@ -205,9 +207,9 @@ def read_and_normalize_test_data(img_rows, img_cols, color_type=1):
         print('Restore test from cache!')
         (test_data, test_id) = restore_data(cache_path)
 
-    test_data = np.array(test_data, dtype=np.uint8)
+    test_data = np.array(test_data, dtype=np.float32)
     test_data = test_data.reshape(test_data.shape[0], color_type, img_rows, img_cols)
-    test_data = test_data.astype('float32')
+    #test_data = test_data.astype('float32')
     test_data /= 255
     print('Test shape:', test_data.shape)
     print(test_data.shape[0], 'test samples')
@@ -246,8 +248,8 @@ def copy_selected_drivers(train_data, train_target, driver_id, driver_list):
             data.append(train_data[i])
             target.append(train_target[i])
             index.append(i)
-    data = np.array(data, dtype=np.float32)
-    target = np.array(target, dtype=np.float32)
+    data = np.array(data)
+    target = np.array(target)
     index = np.array(index, dtype=np.uint32)
     return data, target, index
 
@@ -322,7 +324,7 @@ nb_epoch = 5
 random_state = 51
 
 train_data, train_target, driver_id, unique_drivers = read_and_normalize_train_data(img_rows, img_cols, color_type_global)
-test_data, test_id = read_and_normalize_test_data(img_rows, img_cols, color_type_global)
+#test_data, test_id = read_and_normalize_test_data(img_rows, img_cols, color_type_global)
 
 
 # In[61]:
@@ -342,7 +344,7 @@ print('Start Single Run')
 print('Split train: ', len(X_train), len(Y_train))
 print('Split valid: ', len(X_valid), len(Y_valid))
 print('Train drivers: ', unique_list_train)
-print('Test drivers: ', unique_list_valid)
+#print('Test drivers: ', unique_list_valid)
 
 
 # In[62]:
@@ -409,14 +411,14 @@ for i in range(len(test_index)):
     yfull_train[test_index[i]] = predictions_valid[i]
 
 # Store test predictions
-test_prediction = model.predict(test_data, batch_size=128, verbose=1)
+#test_prediction = model.predict(test_data, batch_size=128, verbose=1)
 
-yfull_test.append(test_prediction)
+#yfull_test.append(test_prediction)
 
 print('Final log_loss: {}, rows: {} cols: {} epoch: {}'.format(score, img_rows, img_cols, nb_epoch))
 info_string = 'loss_' + str(score)                 + '_r_' + str(img_rows)                 + '_c_' + str(img_cols)                 + '_ep_' + str(nb_epoch)
 
-test_res = merge_several_folds_mean(yfull_test, 1)
+#test_res = merge_several_folds_mean(yfull_test, 1)
 
 
 # In[37]:
@@ -467,7 +469,7 @@ keys = ['c0', 'c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7', 'c8', 'c9']
 # In[46]:
 
 
-plot_confusion_matrix(cm, keys, normalize=True)
+#plot_confusion_matrix(cm, keys, normalize=True)
 
 
 # In[47]:
