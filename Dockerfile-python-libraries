@@ -2,9 +2,6 @@ FROM tensorflow/tensorflow
 
 LABEL authors="Eduardo Lopes <eduardo.lopes.es@gmail.com>"
 
-RUN mkdir -p /usr/src/app 
-WORKDIR /usr/src/app 
-
 RUN apt-get update && \
     apt-get install -y \ 
     wget \
@@ -52,7 +49,5 @@ RUN mkdir -p ~/opencv cd ~/opencv && \
     make install && \ 
     ldconfig
 
-COPY requirements.txt /usr/src/app/
+COPY requirements.txt /notebooks
 RUN pip install --no-cache-dir -r requirements.txt
-
-COPY . /usr/src/app 
