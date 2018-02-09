@@ -5,7 +5,7 @@ services:
   deep_learning:
     build: 
       context: .
-      dockerfile: Dockerfile-python-libraries
+      dockerfile: Dockerfile
     ports: 
       - 8888:8888
       - 6006:6006
