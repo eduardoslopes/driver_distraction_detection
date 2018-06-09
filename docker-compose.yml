@@ -11,3 +11,7 @@ services:
       - 6006:6006
     volumes: 
       - ./notebooks:/notebooks
+#    command: runipy -o datasets/driver_distraction/scripts/DriverDistractionDetectionCNNResnet101.ipynb
+#    command: runipy -o datasets/driver_distraction/scripts/DriverDistractionDetectionCNNResnet50.ipynb
+#    command: runipy -o datasets/driver_distraction/scripts/DriverDistractionDetectionCNNInceptionV3.ipynb
+#    command: runipy -o datasets/driver_distraction/scripts/DriverDistractionDetectionCNN_VGG16.ipynb
