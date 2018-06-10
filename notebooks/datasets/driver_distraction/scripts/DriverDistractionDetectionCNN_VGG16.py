@@ -97,7 +97,7 @@ class DriverDistractionHelper:
         print('Read train images')
         for j in range(10):
             print('Load folder c{}'.format(j))
-            path = os.path.join('..', 'input', 'train', 'c' + str(j), '*.jpg')
+            path = os.path.join('datasets', 'driver_distraction', 'input', 'train', 'c' + str(j), '*.jpg')
             files = glob.glob(path)
             for fl in files:
                 flbase = os.path.basename(fl)
@@ -113,7 +113,7 @@ class DriverDistractionHelper:
     
     def load_manual_test(self, img_rows, img_cols, color_type=1):
         print('Read manual test images')
-        path = os.path.join('..', 'input', 'test', '*.jpg')
+        path = os.path.join('datasets', 'driver_distraction', 'input', 'test', '*.jpg')
         files = glob.glob(path)
         X_test = []
         total = 0
@@ -134,7 +134,7 @@ class DriverDistractionHelper:
     
     def get_driver_data(self):
         dr = dict()
-        path = os.path.join('..', 'input', 'driver_imgs_list.csv')
+        path = os.path.join('datasets', 'driver_distraction', 'input', 'driver_imgs_list.csv')
         print('Read drivers data')
         f = open(path, 'r')
         line = f.readline()
@@ -205,7 +205,7 @@ def create_vgg16(img_rows, img_cols, color_type=1, num_classes=None):
     model.add(Dense(4096, activation='relu'))
     model.add(Dense(1000, activation='softmax'))
     
-    model.load_weights('models/vgg16_weights_tf_dim_ordering_tf_kernels.h5')
+    model.load_weights('datasets/driver_distraction/scripts/models/vgg16_weights_tf_dim_ordering_tf_kernels.h5')
     
     # Truncate and replace softmax layer for transfer learning
     model.layers.pop()
@@ -318,6 +318,6 @@ for i in range(9):
 # In[ ]:
 
 
-model.save('models/vgg16_model.h5')
-model.save_weights('models/vgg16_model_weights.h5')
+model.save('datasets/driver_distraction/scripts/models/vgg16_model.h5')
+model.save_weights('datasets/driver_distraction/scripts/models/vgg16_model_weights.h5')
 
