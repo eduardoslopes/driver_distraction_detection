@@ -7,5 +7,7 @@ RUN jupyter nbextension enable --py --sys-prefix widgetsnbextension
 COPY requirements.txt /notebooks
 RUN pip install --no-cache-dir -r requirements.txt
 
+RUN apt-get install -y python-tk
+
 RUN jupyter nbextension enable --py --sys-prefix gmaps
 RUN jt -t monokai -m 200

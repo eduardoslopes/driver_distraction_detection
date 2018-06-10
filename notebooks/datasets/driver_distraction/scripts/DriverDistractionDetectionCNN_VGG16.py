@@ -15,7 +15,6 @@ from datetime import datetime
 import tensorflow as tf
 
 import matplotlib.pyplot as plt
-get_ipython().magic(u'matplotlib inline')
 
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import log_loss, confusion_matrix
