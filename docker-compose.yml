@@ -15,3 +15,4 @@ services:
 #    command: runipy -o datasets/driver_distraction/scripts/DriverDistractionDetectionCNNResnet50.ipynb
 #    command: runipy -o datasets/driver_distraction/scripts/DriverDistractionDetectionCNNInceptionV3.ipynb
 #    command: runipy -o datasets/driver_distraction/scripts/DriverDistractionDetectionCNN_VGG16.ipynb
+#    command: runipy -o datasets/driver_distraction/scripts/DriverDistractionDetectionCNN_VGG16.py
